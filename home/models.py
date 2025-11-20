@@ -113,12 +113,22 @@ class News(models.Model):
         return self.title
     class Meta:
         ordering = ['-news_date']
+        
+class Course(BaseModel):
+    name = models.CharField(max_length=100)
+    muddat = models.IntegerField()
+    active = models.BooleanField(default=True)    
+
+    def __str__(self):
+        return self.name
+
 
 class Group(BaseModel):
     name = models.CharField(max_length=100)
     teacher = models.ForeignKey(User, on_delete=models.CASCADE, related_name='teaching_groups', limit_choices_to={'user_type': 'teacher'})
     students = models.ManyToManyField(User, related_name='student_groups', limit_choices_to={'user_type': 'student'}) #ko'pgina studentlar va ko'pgina grouplar o'zaro bog'lanishi uchun
-
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='kurs_groups', null=True, blank=True)
+    
     def __str__(self):
         return self.name
     

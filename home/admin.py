@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Coins, Group, Item, Purchase, Transactions, News
-
+from .models import User, Coins, Group, Item, Purchase, Transactions, News,Course
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
@@ -42,3 +41,7 @@ admin.site.register(Coins)
 admin.site.register(Item)
 admin.site.register(Purchase)
 admin.site.register(News)
+admin.site.register(Course)
+
+
+

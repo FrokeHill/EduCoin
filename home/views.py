@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import User, Item, News
 from django.db.models import Count
-from .utils import get_student
+from .utils import get_student,get_teacher
 
 
 def index(request):
@@ -11,12 +11,7 @@ def index(request):
         user = request.user
         
         if user.is_teacher:
-            context = {
-                "started_at": user.started_at,
-                "user_type": "teacher",
-                "username": user.username,
-                "full_name": user.get_full_name() or user.username
-            }
+            context = get_teacher(request)
             return render(request, "index.html", context=context)
             
         elif user.is_student:
@@ -54,7 +49,7 @@ def index(request):
             }
             return render(request, "index.html", context=context)
         else:
-            return render(request, "index.html")
+            return redirect("student_login")
     else:
         return redirect('student_login')
 def allNews(request):

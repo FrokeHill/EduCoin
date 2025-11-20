@@ -121,3 +121,5 @@ AUTH_USER_MODEL = 'home.User'
 # Media files
 MEDIA_URL = '/home/umarxon/Desktop/EduCoinSystem/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+TIME_ZONE = 'Asia/Tashkent'

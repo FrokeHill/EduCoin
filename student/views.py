@@ -119,12 +119,12 @@ def item_buy(request, id):
             student=request.user,
             maxsulot=item,
         )
-        coin -= item.price
+        request.user.coins.update(count=coin - item.price)
         messages.info(request, "Sotib olindi")
 
         return redirect("student_profile")
     
     else:
         messages.info(request, "Sotib olib bo'lmaydi")
-
+        
         return redirect("student_profile")

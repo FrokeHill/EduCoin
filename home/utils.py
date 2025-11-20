@@ -1,4 +1,4 @@
-from home.models import User
+from home.models import User, Group
 from django.db.models import Count
 
 def get_student(request):
@@ -38,3 +38,26 @@ def get_student(request):
         }
 
         return context
+    
+def get_teacher(request):
+    user = request.user
+
+    students = User.objects.filter(user_type="student")
+    guruhlar = Group.objects.filter(teacher=user)
+    
+    # studentlar = User.objects.filter(
+    #         user_type='student',
+
+            
+    #     ).annotate(
+    #         students_count=Count("coins")
+    #     ).order_by('-coin_count')
+    context = {
+            "started_at": user.started_at,
+            "user_type": "teacher",
+            "username": user.username,
+            "full_name": user.get_full_name() or user.username,
+            "guruhlar": guruhlar,
+        }
+    
+    return context
